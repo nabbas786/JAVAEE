@@ -1,0 +1,64 @@
+package com.nad.ds;
+
+public class LinkedListOperations {
+
+	public static Node reverse(Node head) {
+		if(head==null || head.nextNode==null)
+			return head;
+		
+		Node remaining=reverse(head.getNextNode());
+		head.nextNode.nextNode=head;
+		head.nextNode=null;
+		return remaining;
+	}
+	 public Node rotateRight(Node head, int k) {
+	        if(head == null) return head;
+	        Node prev = null;
+	        Node res = head;
+	        Node curr = head;
+	        Node dummy = head;
+	        Node tail = null;
+	        int len = 0;
+	        
+	        while(dummy != null){
+	            tail = dummy;
+	            dummy = dummy.next;
+	            len++;
+	        }
+	        if(k == 0) return head;
+	        if(k % len == 0){
+	            return res;
+	        }else if(k < len){
+	            int start = len - k;
+	            while(start > 0){
+	                prev = curr;
+	                curr = curr.next;
+	                start--;
+	            }
+	            prev.next = null;
+	            tail.next = res;
+	            return curr;
+	        }else{
+	             int val = k % len;
+	             int nums = len - val;
+	            while(nums > 0){
+	                prev = curr;
+	                curr = curr.next;
+	                nums--;
+	            }
+	            prev.next = null;
+	            tail.next = res;
+	            return curr;
+	        }
+	        
+	    }
+	public static void main(String[] args) {
+		Node n1=new Node(1);
+		Node n2=new Node(2);
+		Node n3=new Node(3);
+		n1.nextNode=n2;
+		n2.nextNode=n3;
+		n3.nextNode=null;
+		Node reverse=reverse(n1);
+	}
+}

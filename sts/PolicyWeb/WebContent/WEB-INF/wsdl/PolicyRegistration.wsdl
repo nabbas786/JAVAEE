@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/PolicyRegistration/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PolicyRegistration"
+	xmlns:pt="http://www.example.org/policy/registration"
+	targetNamespace="http://www.example.org/PolicyRegistration/">
+	<wsdl:types>
+ 		<xsd:schema targetNamespace="http://www.example.org/policy/registration">
+ 			<xsd:complexType name="MemberInfo">
+ 				<xsd:sequence>
+					<xsd:element name="ssn" type="xsd:string"/>
+					<xsd:element name="userName" type="xsd:string"/>
+ 				</xsd:sequence>
+ 			</xsd:complexType>
+ 			<xsd:complexType name="PoliyInfo">
+ 				<xsd:sequence>
+					<xsd:element name="id" type="xsd:string"/>
+					<xsd:element name="policyName" type="xsd:string"/>
+ 				</xsd:sequence>
+ 			</xsd:complexType>
+ 		<xsd:complexType name="PolicyRegistration">
+ 				<xsd:sequence>
+					<xsd:element name="registrationNumber" type="xsd:string"/>
+					<xsd:element name="policyDetails" type="xsd:string"/>
+ 				</xsd:sequence>
+ 			</xsd:complexType>
+ 		
+ 		</xsd:schema>
+ 	
+ 	</wsdl:types>
+ 
+ 
+  <wsdl:message name="PolicyRegistration_enroll">
+    <wsdl:part name="memberInfo" type="pt:MemberInfo"/>
+    <wsdl:part name="policyInfo" type="pt:PoliyInfo"/>
+  </wsdl:message>
+  <wsdl:message name="PolicyRegistration_enrollResponse">
+    <wsdl:part name="policyRegistration" type="pt:PolicyRegistration"/>
+  </wsdl:message>
+  <wsdl:portType name="PolicyRegistration">
+    <wsdl:operation name="enroll" parameterOrder="memberInfo policyInfo">
+      <wsdl:input message="tns:PolicyRegistration_enroll"/>
+      <wsdl:output message="tns:PolicyRegistration_enrollResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+	<wsdl:binding name="PolicyRegistrationSOAP"
+		type="tns:PolicyRegistration">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="enroll">
+			<soap:operation
+				soapAction="http://www.example.org/PolicyRegistration/enroll" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.example.org/PolicyRegistration/"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://www.example.org/PolicyRegistration/"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+  <wsdl:service name="PolicyRegistration">
+    <wsdl:port binding="tns:PolicyRegistrationSOAP" name="PolicyRegistrationSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

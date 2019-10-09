@@ -1,0 +1,20 @@
+package com.nad.ds;
+
+public class StringDemo {
+
+	public static void main(String[] args) {
+		System.out.println(convertString("Nadeem"));
+	}
+	
+	public static String convertString(String s) {
+	
+		char ch[] =s.toCharArray();
+		StringBuffer sb=new StringBuffer();
+		for(char c : ch) {
+			int temp=(int)c+1;
+			sb.append((char)temp);
+		}
+		return sb.toString();
+	}
+	
+}

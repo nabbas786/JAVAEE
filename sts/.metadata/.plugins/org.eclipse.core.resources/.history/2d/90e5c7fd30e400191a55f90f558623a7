@@ -1,0 +1,39 @@
+package com.nad.ds;
+
+public class LinkedListProblems {
+
+	
+	 public static  Node addTwoNumbers(Node l1, Node l2) {
+	        
+	        int carry=0;
+	        Node result=new Node(0);
+	        while(l1.getNextNode() !=null && l2.getNextNode() !=null){
+	        	int num=(Integer)l1.getData()+(Integer)l2.getData()+carry;
+        		carry=num/10;
+	            Node temp=new Node(num%10);
+	            l1=l1.getNextNode();
+	            l2=l2.getNextNode();
+	            result.setNextNode(temp);
+	            result=result.getNextNode();
+	        }
+			return result.getNextNode();
+	    }
+	 
+	 public static void main(String[] args) {
+		   Node node1=new Node(2);
+			Node node2=new Node(4);
+			Node node3=new Node(3);
+			Node node4=new Node(5);
+			Node node5=new Node(6);
+			Node node6=new Node(4);
+			node1.setNextNode(node2);
+			node2.setNextNode(node3);
+			node3.setNextNode(null);
+			node4.setNextNode(node5);
+			node5.setNextNode(node6);
+			node6.setNextNode(null);
+			Node l1=node1;
+			Node l2= node4;
+			addTwoNumbers(l1, l2);
+	}
+}

@@ -1,0 +1,54 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from PolicyRegistration WSDL service -->
+
+  <service name="PolicyRegistrationSOAP" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://www.example.org/PolicyRegistration/"/>
+      <parameter name="wsdlServiceElement" value="PolicyRegistration"/>
+      <parameter name="schemaUnqualified" value="http://www.example.org/policy/registration"/>
+      <parameter name="wsdlServicePort" value="PolicyRegistrationSOAP"/>
+      <parameter name="className" value="org.example.www.PolicyRegistration.PolicyRegistrationSOAPImpl"/>
+      <parameter name="wsdlPortType" value="PolicyRegistration"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="enroll" qname="operNS:enroll" xmlns:operNS="http://www.example.org/PolicyRegistration/" returnQName="policyRegistration" returnType="rtns:PolicyRegistration" xmlns:rtns="http://www.example.org/policy/registration" soapAction="http://www.example.org/PolicyRegistration/enroll" >
+        <parameter qname="memberInfo" type="tns:MemberInfo" xmlns:tns="http://www.example.org/policy/registration"/>
+        <parameter qname="policyInfo" type="tns:PoliyInfo" xmlns:tns="http://www.example.org/policy/registration"/>
+      </operation>
+      <parameter name="allowedMethods" value="enroll"/>
+
+      <typeMapping
+        xmlns:ns="http://www.example.org/policy/registration"
+        qname="ns:PolicyRegistration"
+        type="java:org.example.www.policy.registration.PolicyRegistration"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org/policy/registration"
+        qname="ns:PoliyInfo"
+        type="java:org.example.www.policy.registration.PoliyInfo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org/policy/registration"
+        qname="ns:MemberInfo"
+        type="java:org.example.www.policy.registration.MemberInfo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>

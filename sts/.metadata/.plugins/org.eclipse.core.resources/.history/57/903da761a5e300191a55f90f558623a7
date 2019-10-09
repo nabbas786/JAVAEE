@@ -1,0 +1,42 @@
+package com.nad.ds;
+
+import java.util.HashMap;
+import java.util.Set;
+
+public class StringDemo {
+
+	public static void main(String[] args) {
+		System.out.println(convertString("Nadeem"));
+	}
+	
+	public static String convertString(String s) {
+	
+		char ch[] =s.toCharArray();
+		StringBuffer sb=new StringBuffer();
+		for(char c : ch) {
+			int temp=(int)c+1;
+			sb.append((char)temp);
+		}
+		return sb.toString();
+	}
+	
+	//aaabbccc
+	//a3b2c3
+	public static String repetingLetters(String str) {
+		char[] chars=str.toCharArray();
+		HashMap<Character, Integer> countChars=new HashMap<>();
+		for(Character c : chars) {
+			countChars.computeIfAbsent(c, k->1);
+			countChars.computeIfPresent(c, (k,v)->v+1);
+		}
+		Set<Character> keys=countChars.keySet();
+		StringBuilder sb=new StringBuilder();
+		
+		for(Character c: keys) {
+			sb.append(c);
+			sb.append(countChars.get(c));
+		}
+		return sb.toString();
+	}
+	
+}

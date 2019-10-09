@@ -1,0 +1,74 @@
+package com.nad.ds;
+
+public class LinkedListOperations {
+
+	public static Node reverse(Node head) {
+		if(head==null || head.nextNode==null)
+			return head;
+		
+		Node remaining=reverse(head.getNextNode());
+		head.nextNode.nextNode=head;
+		head.nextNode=null;
+		return remaining;
+	}
+	 public static Node rotateRight(Node head, int k) {
+	        if(head == null) return head;
+	        Node prev = null;
+	        Node res = head;
+	        Node curr = head;
+	        Node dummy = head;
+	        Node tail = null;
+	        int len = 0;
+	        
+	        while(dummy != null){
+	            tail = dummy;
+	            dummy = dummy.nextNode;
+	            len++;
+	        }
+	        if(k == 0) return head;
+	        if(k % len == 0){
+	            return res;
+	        }else if(k < len){
+	            int start = len - k;
+	            while(start > 0){
+	                prev = curr;
+	                curr = curr.nextNode;
+	                start--;
+	            }
+	            prev.nextNode = null;
+	            tail.nextNode = res;
+	            return curr;
+	        }else{
+	             int val = k % len;
+	             int nums = len - val;
+	            while(nums > 0){
+	                prev = curr;
+	                curr = curr.nextNode;
+	                nums--;
+	            }
+	            prev.nextNode = null;
+	            tail.nextNode = res;
+	            return curr;
+	        }
+	        
+	    }
+	public static void main(String[] args) {
+		Node n1=new Node(1);
+		Node n2=new Node(2);
+		Node n3=new Node(3);
+		Node n4=new Node(4);
+		Node n5=new Node(5);
+		Node n6=new Node(6);
+		Node n7=new Node(7);
+		
+		n1.nextNode=n2;
+		n2.nextNode=n3;
+		n3.nextNode=n4;
+		n4.nextNode=n5;
+		n5.nextNode=n6;
+		n6.nextNode=n7;
+		n7.nextNode=null;
+		Node newNode=rotat
+		Node reverse=reverse(n1);
+	}
+}

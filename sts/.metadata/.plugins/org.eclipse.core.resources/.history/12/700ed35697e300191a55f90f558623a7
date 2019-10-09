@@ -1,0 +1,24 @@
+package com.nad.ds;
+
+public class LinkedListOperations {
+
+	public static Node reverse(Node head) {
+		if(head==null || head.nextNode==null)
+			return head;
+		
+		Node remaining=reverse(head.getNextNode());
+		head.nextNode.nextNode=head;
+		head.nextNode=null;
+		return remaining;
+	}
+	
+	public static void main(String[] args) {
+		Node n1=new Node(1);
+		Node n2=new Node(2);
+		Node n3=new Node(3);
+		n1.nextNode=n2;
+		n2.nextNode=n3;
+		n3.nextNode=null;
+		Node reverse=reverse(n1);
+	}
+}
